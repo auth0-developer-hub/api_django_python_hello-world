@@ -13,7 +13,6 @@ import os
 
 import dotenv
 from pathlib import Path
-from django.core.exceptions import ImproperlyConfigured
 from common.utils import get_env_var
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -157,5 +156,22 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES': []
+    'EXCEPTION_HANDLER': 'messages_api.views.api_exception_handler',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',
+    ],
+}
+
+# JWT
+
+AUTH0_DOMAIN = get_env_var('AUTH0_DOMAIN')
+AUTH0_AUDIENCE = get_env_var('AUTH0_AUDIENCE')
+
+SIMPLE_JWT = {
+    'ALGORITHM': 'RS256',
+    'JWK_URL': f'https://{AUTH0_DOMAIN}/.well-known/jwks.json',
+    'AUDIENCE': AUTH0_AUDIENCE,
+    'ISSUER': f'https://{AUTH0_DOMAIN}/',
+    'USER_ID_CLAIM': 'sub',
+    'AUTH_TOKEN_CLASSES': ('authz.tokens.Auth0Token',),
 }

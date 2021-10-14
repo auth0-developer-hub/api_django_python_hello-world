@@ -198,6 +198,61 @@ Status: Corresponding 400 status code
 }
 ```
 
+**Request without authorization header**
+```bash
+curl localhost:6060/api/messages/admin
+```
+```json
+{
+  "message":"Authentication credentials were not provided.",
+}
+```
+HTTP Status: `401`
+
+**Request with malformed authorization header**
+```bash
+curl localhost:6060/api/messages/admin --header "authorization: <valid_token>"
+```
+```json
+{
+  "message":"Authentication credentials were not provided.",
+}
+```
+HTTP Status: `401`
+
+**Request with wrong authorization scheme**
+```bash
+curl localhost:6060/api/messages/admin --header "authorization: Basic <valid_token>"
+```
+```json
+{
+  "message":"Authentication credentials were not provided.",
+}
+```
+HTTP Status: `401`
+
+**Request without token**
+```bash
+curl localhost:6060/api/messages/admin --header "authorization: Bearer"
+```
+```json
+{
+  "message":"Authorization header must contain two space-delimited values",
+}
+```
+HTTP Status: `401`
+
+**JWT validation error**
+```bash
+curl localhost:6060/api/messages/admin --header "authorization: Bearer asdf123"
+```
+```json
+{
+  "message":"Given token not valid for any token type",
+}
+```
+HTTP Status: `401`
+
 ### 500s errors
 
 
