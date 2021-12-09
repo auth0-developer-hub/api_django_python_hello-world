@@ -1,9 +1,12 @@
 # Direct dependencies
 Django
 djangorestframework
+djangorestframework-simplejwt
 django-cors-headers
 django-csp
 python-dotenv
+pyjwt
+cryptography
 
 # WSGI server
 gunicorn
