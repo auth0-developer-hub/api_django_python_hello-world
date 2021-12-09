@@ -9,23 +9,28 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os
 
+import dotenv
 from pathlib import Path
+from django.core.exceptions import ImproperlyConfigured
+from common.utils import get_env_var
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dotenv.load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b$j*02r)4&)(u1=ocl6!zi_&-dzqyow%+63z*r7n+x9-=m1(+q'
+SECRET_KEY = get_env_var('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG_ENABLED") == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,13 +47,17 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'hello_world.middleware.DisableClientSideCachingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'hello_world.urls'
@@ -126,6 +135,27 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-   'http://localhost:4040',
+# Security
+
+CLIENT_ORIGIN_URL = get_env_var('CLIENT_ORIGIN_URL')
+
+CORS_ALLOWED_ORIGINS = [CLIENT_ORIGIN_URL]
+
+CORS_ALLOW_METHODS = [
+    "GET",
 ]
+
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+]
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_SECONDS = 31536000
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': []
+}

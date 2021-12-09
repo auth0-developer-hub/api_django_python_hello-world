@@ -1,4 +1,4 @@
 
 class Message:
-    def __init__(self, message=""):
-        self.message = message
+    def __init__(self, text=""):
+        self.text = text

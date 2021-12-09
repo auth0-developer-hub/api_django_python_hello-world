@@ -2,3 +2,8 @@
 Django
 djangorestframework
 django-cors-headers
+django-csp
+python-dotenv
+
+# WSGI server
+gunicorn
