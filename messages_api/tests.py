@@ -21,6 +21,11 @@ VALID_TOKEN_PAYLOAD = {
     "permissions": [],
 }
 
+ADMIN_TOKEN_PAYLOAD = {
+    **VALID_TOKEN_PAYLOAD,
+    "permissions": ["read:admin-messages"],
+}
+
 
 class PublicMessageApiViewTest(SimpleTestCase):
 
@@ -84,8 +89,26 @@ class AdminMessageApiViewTest(SimpleTestCase):
         )
 
     @patch.object(TokenBackend, 'decode')
-    def test_admin_api_view_with_valid_token_returns_ok(self, mock_decode):
+    def test_admin_api_view_without_admin_token_returns_forbidden(self, mock_decode):
         mock_decode.return_value = VALID_TOKEN_PAYLOAD
+
+        response = self.client.get(
+            reverse('admin-message'), HTTP_AUTHORIZATION="Bearer valid-token"
+        )
+
+        self.assertEqual(response.status_code, 403)
+        self.assertDictEqual(
+            response.json(),
+            {
+                'error': "insufficient_permissions",
+                'error_description': "You do not have permission to perform this action.",
+                'message': "Permission denied"
+            },
+        )
+
+    @patch.object(TokenBackend, 'decode')
+    def test_admin_api_view_with_admin_token_returns_ok(self, mock_decode):
+        mock_decode.return_value = ADMIN_TOKEN_PAYLOAD
 
         response = self.client.get(
             reverse('admin-message'), HTTP_AUTHORIZATION="Bearer valid-token"

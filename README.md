@@ -253,6 +253,19 @@ curl localhost:6060/api/messages/admin --header "authorization: Bearer asdf123"
 ```
 HTTP Status: `401`
 
+**Token without required permissions**
+```bash
+curl localhost:6060/api/messages/admin --header "authorization: Bearer <token_without_permissions>"
+```
+```json
+{
+  "error":"insufficient_permissions",
+  "error_description":"You do not have permission to perform this action.",
+  "message":"Permission denied"
+}
+```
+HTTP Status: `403`
+
 ### 500s errors
 
 
