@@ -140,7 +140,9 @@ Status: 200 OK
 
 ```json
 {
-  "text": "The API doesn't require an access token to share this message."
+  "text": "The secured API doesn't require an access token to share this public message.",
+  "api": "api_django_python_hello-world",
+  "branch": "basic-authorization"
 }
 ```
 
@@ -160,7 +162,9 @@ Status: 200 OK
 
 ```json
 {
-  "text": "The API successfully validated your access token."
+  "text": "The secured API requires a valid access token to share this protected message.",
+  "api": "api_django_python_hello-world",
+  "branch": "basic-authorization"
 }
 ```
 
@@ -180,7 +184,9 @@ Status: 200 OK
 
 ```json
 {
-  "text": "The API successfully recognized you as an admin."
+  "text": "The secured API requires a valid access token to share this admin message.",
+  "api": "api_django_python_hello-world",
+  "branch": "basic-authorization"
 }
 ```
 

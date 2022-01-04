@@ -15,16 +15,16 @@ class MessageApiView(RetrieveAPIView):
 
 
 class PublicMessageApiView(MessageApiView):
-    text = "The API doesn't require an access token to share this message."
+    text = "The secured API doesn't require an access token to share this public message."
 
 
 class ProtectedMessageApiView(MessageApiView):
-    text = "The API successfully validated your access token."
+    text = "The secured API requires a valid access token to share this protected message."
     permission_classes = [IsAuthenticated]
 
 
 class AdminMessageApiView(MessageApiView):
-    text = "The API successfully recognized you as an admin."
+    text = "The secured API requires a valid access token to share this admin message."
     permission_classes = [IsAuthenticated]
 
 
