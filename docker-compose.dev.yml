@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    image: api_django_python_hello-world_rbac
+    container_name: api_django_python_hello-world_rbac
+    ports:
+      - "6060:6060"
