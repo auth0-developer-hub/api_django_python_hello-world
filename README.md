@@ -184,9 +184,11 @@ Status: 200 OK
 
 ```json
 {
-  "text": "The starter API doesn't require an access token to share this admin message.",
-  "api": "api_django_python_hello-world",
-  "branch": "starter"
+  "text": "This is a public message.",
+  "metadata" : {
+    "api": "api_django_python_hello-world",
+    "branch": "starter"
+  }
 }
 ```
 
