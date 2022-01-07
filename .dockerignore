@@ -257,9 +257,9 @@ venv/*
 
 # Dockerfiles
 .dockerignore
-Dockerfile-dev
-docker-compose.dev.yaml
+Dockerfile
+docker-compose.yaml
 
-.env.example
+.env*
 .git*
 README.md

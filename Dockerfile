@@ -3,7 +3,6 @@ FROM python:3.7
 WORKDIR /home/app
 
 COPY requirements.txt .
-COPY .env .
 
 RUN pip install -r requirements.txt
 
