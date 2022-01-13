@@ -63,12 +63,22 @@ gunicorn
 
   See the [documentation](https://docs.djangoproject.com/en/3.2/ref/settings/#secure-browser-xss-filter) for more details.
 
+  But we still need to explicitly add the header to our custom [Auth0Middleware](hello_world/middleware.py), otherwise Django will not add this header by default:
+  ```python
+  response['X-XSS-Protection'] = 0
+  ```
+
 - __HTTP Strict Transport Security (HSTS)__
 
   Disabled by default, so we need to add this configuration:
   ```python
   SECURE_HSTS_INCLUDE_SUBDOMAINS = True
   SECURE_HSTS_SECONDS = 31536000
+  ```
+  Note that this will only take effect for HTTPS requests. For HTTP we need to add this header to the [Auth0Middleware](hello_world/middleware.py):
+
+  ```python
+  response['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
   ```
 
   See the [documentation](https://docs.djangoproject.com/en/3.2/ref/middleware/#http-strict-transport-security) for more details.
@@ -89,7 +99,11 @@ gunicorn
 
   Not enabled by default, we need to install the `django-csp` dependency and add it to the `MIDDLEWARES`. It comes pre-configured with the directives:
     - `default-src: self`
-    - `frame-ancestors: none`
+  
+  We need to manually set the configuration:
+  ```python
+  CSP_FRAME_ANCESTORS = "'none'"
+  ```
 
   See the [documentation](https://django-csp.readthedocs.io/en/latest/configuration.html#policy-settings) for more details.
 
@@ -99,6 +113,12 @@ gunicorn
   
   ```
   Cache-Control: max-age=0, no-cache, no-store, must-revalidate, private
+  ```
+
+  We also need to add the `Expires = 0` header to the [Auth0Middleware](hello_world/middleware.py), otherwise Django will set it with the actual date:
+
+  ```python
+  response['Expires'] = 0
   ```
 
   See the [documentation](https://docs.djangoproject.com/en/3.2/ref/utils/#django.utils.cache.add_never_cache_headers) for more details.
