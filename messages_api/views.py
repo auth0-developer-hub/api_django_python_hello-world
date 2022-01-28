@@ -13,12 +13,12 @@ class MessageApiView(RetrieveAPIView):
 
 
 class PublicMessageApiView(MessageApiView):
-    text = "The API doesn't require an access token to share this message."
+    text = "This is a public message."
 
 
 class ProtectedMessageApiView(MessageApiView):
-    text = "The API successfully validated your access token."
+    text = "This is a protected message."
 
 
 class AdminMessageApiView(MessageApiView):
-    text = "The API successfully recognized you as an admin."
+    text = "This is an admin message."

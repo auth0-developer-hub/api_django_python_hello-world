@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'hello_world.middleware.DisableClientSideCachingMiddleware',
+    'hello_world.middleware.Auth0Middleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -152,6 +152,8 @@ CORS_ALLOW_HEADERS = [
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_SECONDS = 31536000
+
+CSP_FRAME_ANCESTORS = "'none'"
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
