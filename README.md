@@ -163,7 +163,7 @@ Status: 200 OK
   "text": "This is a public message.",
   "metadata" : {
     "api": "api_django_python_hello-world",
-    "branch": "basic-authorization"
+    "branch": "basic-role-based-access-control"
   }
 }
 ```
@@ -187,7 +187,7 @@ Status: 200 OK
   "text": "This is a protected message.",
   "metadata" : {
     "api": "api_django_python_hello-world",
-    "branch": "basic-authorization"
+    "branch": "basic-role-based-access-control"
   }
 }
 ```
@@ -211,7 +211,7 @@ Status: 200 OK
   "text": "This is an admin message.",
   "metadata" : {
     "api": "api_django_python_hello-world",
-    "branch": "basic-authorization"
+    "branch": "basic-role-based-access-control"
   }
 }
 ```
