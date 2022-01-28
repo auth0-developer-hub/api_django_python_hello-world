@@ -4,6 +4,7 @@ WORKDIR /home/developer/app
 USER developer
 COPY ./requirements.txt .
 RUN pip install --disable-pip-version-check -r requirements.txt --target /home/developer/packages
+COPY authz authz
 COPY common common
 COPY hello_world hello_world
 COPY messages_api messages_api

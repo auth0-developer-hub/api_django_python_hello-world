@@ -163,7 +163,7 @@ Status: 200 OK
   "text": "This is a public message.",
   "metadata" : {
     "api": "api_django_python_hello-world",
-    "branch": "starter"
+    "branch": "basic-authorization"
   }
 }
 ```
@@ -187,7 +187,7 @@ Status: 200 OK
   "text": "This is a public message.",
   "metadata" : {
     "api": "api_django_python_hello-world",
-    "branch": "starter"
+    "branch": "basic-authorization"
   }
 }
 ```
@@ -211,7 +211,7 @@ Status: 200 OK
   "text": "This is a public message.",
   "metadata" : {
     "api": "api_django_python_hello-world",
-    "branch": "starter"
+    "branch": "basic-authorization"
   }
 }
 ```

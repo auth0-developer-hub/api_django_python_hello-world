@@ -2,7 +2,7 @@ version: "3.8"
 services:
   api:
     build: .
-    image: api_django_python_hello-world:starter
+    image: api_django_python_hello-world:basic-authorization
     ports:
       - "6060:6060"
     env_file:
